@@ -21,7 +21,9 @@ function calculateTotalMortgage(percent, contribution, amount, countMonths) {
    contribution = +contribution;
    amount = +amount;
    countMonths = +countMonths;
- if (typeof percent !== 'number'|| typeof contribution !== 'number'|| typeof amount !== 'number'|| typeof countMonths !== 'number') {console.log ('false')} else {  
+ if (typeof percent !== 'number'|| typeof contribution !== 'number'|| typeof amount !== 'number'|| typeof countMonths !== 'number') {
+   console.log ('false')
+} else {  
  let percentMounth = percent /100 / 12;
  let credit = amount - contribution;
  let payment = credit * (percentMounth + (percentMounth / (((1 + percentMounth)**countMonths) - 1)));
