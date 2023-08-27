@@ -20,11 +20,21 @@ function getArrayParams(...arr) {
 }
 
 function summElementsWorker(...arr) {
-
+   let summElements = arr.reduce(function(initialValue, elem) {
+      return initialValue + elem;
+   }, 0);
+   return summElements;
 }
 
 function differenceMaxMinWorker(...arr) {
-
+   if (arr.length === 0)  {
+      return 0;
+    } else {
+let maxWorker = Math.max(...arr);
+ let minWorker = Math.min(...arr);
+ let differenceWorker = maxWorker - minWorker;
+ return differenceWorker;
+    };
 }
 
 function differenceEvenOddWorker(...arr) {
