@@ -73,16 +73,15 @@ return averageEEWorker;
 }
 
 function makeWork (arrOfArr, func) {
- let WorkerResult = -Infinity;
+ let maxWorkerResult = -Infinity;
  let result = [];
  for (let i = 0; i < arrOfArr.length; i++) {
-   result.push(func(arrOfArr[i]));
+   result.push (func(arrOfArr[i]));
  };
   for (let i = 0; i < result.length; i++) {
-   if (WorkerResult < result[i]) {
-     WorkerResult = result[i];
+   if (maxWorkerResult < result[i]) {
+      maxWorkerResult = result[i];
    };
  };
- maxWorkerResult = Math.max(WorkerResult);
  return maxWorkerResult;
 }
