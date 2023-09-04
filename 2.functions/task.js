@@ -20,22 +20,19 @@ function getArrayParams(...arr) {
 }
 
 function summElementsWorker(...arr) {
-   let summElements = arr.reduce(function(initialValue, elem) {
-      return initialValue + elem;
-   }, 0);
+   if (arr.length === 0) {
+      return 0;
+   };
+   const summElements = arr.reduce((initialValue, elem) => initialValue + elem);
    return summElements;
 }
 
 function differenceMaxMinWorker(...arr) {
-   if (arr.length === 0)  {
+   if (arr.length === 0) {
       return 0;
-    } else {
-let maxWorker = Math.max(...arr);
- let minWorker = Math.min(...arr);
- let differenceMMWorker = maxWorker - minWorker;
- return differenceMMWorker;
     };
-}
+ return Math.max(...arr) - Math.min(...arr);
+    }
 
 function differenceEvenOddWorker(...arr) {
    let sumEvenElement = 0; // for even numbers
@@ -64,19 +61,17 @@ for (let i = 0; i < arr.length; i++) {
       countEvenElement += 1;
    };
 };
-let averageEEWorker = sumEvenElement / countEvenElement;
 if (arr.length === 0)  {
    return 0;
- } else {
-return averageEEWorker;
  };
+return sumEvenElement / countEvenElement;
 }
 
 function makeWork (arrOfArr, func) {
  let maxWorkerResult = -Infinity;
  let result = [];
  for (let i = 0; i < arrOfArr.length; i++) {
-   result.push (func(arrOfArr[i]));
+   result.push (func(...arrOfArr));
  };
   for (let i = 0; i < result.length; i++) {
    if (maxWorkerResult < result[i]) {
