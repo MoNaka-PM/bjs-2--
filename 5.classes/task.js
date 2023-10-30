@@ -35,7 +35,7 @@ class Magazine extends PrintEditionItem {
 }
 
 class Book extends PrintEditionItem {
-   constructor(name, releaseDate, pagesCount, author) {
+   constructor(author, name, releaseDate, pagesCount) {
      super(name, releaseDate, pagesCount);
      this.type = "book";
      this.author = author;
@@ -43,28 +43,28 @@ class Book extends PrintEditionItem {
  }
  
  class NovelBook extends Book {
-   constructor(name, releaseDate, pagesCount, author) {
-     super(name, releaseDate, pagesCount, author);
+   constructor(author, name, releaseDate, pagesCount) {
+     super(author, name, releaseDate, pagesCount);
      this.type = "novel";
    }
  }
  
  class FantasticBook extends Book {
-   constructor(name, releaseDate, pagesCount, author) {
-     super(name, releaseDate, pagesCount, author);
+   constructor(author, name, releaseDate, pagesCount) {
+     super(author, name, releaseDate, pagesCount);
      this.type = "fantastic";
    }
  }
  
  class DetectiveBook extends Book {
-   constructor(name, releaseDate, pagesCount, author) {
-     super(name, releaseDate, pagesCount, author);
+   constructor(author, name, releaseDate, pagesCount) {
+     super(author, name, releaseDate, pagesCount);
      this.type = "detective";
    }
 }
 
 class Library {
-   constructor(name, books) {
+   constructor(name) {
       this.name = name;
       this.books = [];
    }
@@ -76,28 +76,14 @@ class Library {
    }
 
    findBookBy(type, value) {
-      for (const book of this.books) {
-        if (type === 'author' && book.author === value) {
-          return book;
-        }
-        if (type === 'name' && book.name === value) {
-          return book;
-        }
-        if (type === 'releaseDate' && book.releaseDate === value) {
-          return book;
-        }
-      }
-      return null; // Возвращаем null, если книга не найдена
+      const findResult = this.books.find((item) => item[type] === value);
+      return findResult || null; // Возвращаем null, если книга не найдена
     }
 
     giveBookByName(bookName){
-      for (let i = 0; i < this.books.length; i++) {
-         if (this.books[i].name === bookName) {
-           const book = this.books[i];
-           this.books.splice(i, 1); // Удаляем книгу из массива
-           return book; // Возвращаем книгу
-         }
-       }
-       return null; // Возвращаем null, если книга не найдена
+      const book = this.findBookBy("name", bookName);
+       if (!book) return null;
+      this.books = this.books.filter((item) => item.name !== bookName);
+      return book;
     }
 }
