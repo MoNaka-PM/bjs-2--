@@ -1,44 +1,51 @@
-//Задача № 1
+// Задача №1
 function cachingDecoratorNew(func) {
-   let cache = [];
-   const maxCacheValuesCount = 5;
-   return (...args) => {
-     const hash = md5(args);
-     const objectFromCache = cache.find(object => object.hash === hash);
-     if (objectFromCache){
-       console.log("Из кеша: ", objectFromCache.value);
-       return "Из кеша: " + objectFromCache.value;
-     }
- 
-     const value = func(...args);
-     cache.push({hash, value})
-     if(cache.length > maxCacheValuesCount) {
-       cache.shift();
-     }
- 
-     console.log("Вычисляем: ", value);
-     return "Вычисляем: " + value;
-   };
+  let cache = [];
+  const maxCacheValuesCount = 5;
+
+  return (...args) => {
+    const hash = md5(args);
+    const objectFromCache = cache.find(object => object.hash === hash);
+
+    if (objectFromCache) {
+      console.log("Из кеша: ", objectFromCache.value);
+      return "Из кеша: " + objectFromCache.value;
+    }
+
+    const value = func(...args);
+    cache.push({ hash, value });
+
+    if (cache.length > maxCacheValuesCount) {
+      cache.shift();
+    }
+
+    console.log("Вычисляем: ", value);
+    return "Вычисляем: " + value;
+  };
 }
 
-//Задача № 2
+// Задача №2
 function debounceDecoratorNew(func, delay) {
-   let timeoutId = null;
-  wrapper.count = 0;
-  wrapper.allCount = 0;
+  let timeoutId = null;
 
   function wrapper(...args) {
     wrapper.allCount++;
 
-    if(timeoutId === null) {
+    if (timeoutId === null) {
       func(...args);
       wrapper.count++;
     }
 
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
+      timeoutId = null; // fix: reset so next call fires immediately after delay
       wrapper.count++;
       func(...args);
     }, delay);
- }
+  }
+
+  wrapper.count = 0;
+  wrapper.allCount = 0;
+
+  return wrapper; // fix: was missing — function returned undefined
 }
